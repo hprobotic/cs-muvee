@@ -5,7 +5,8 @@
 Time spent: **8** hours spent in total
 
 ## Demo
-=> Link: 
+[Online Demo](https://serene-varahamihira-45fe9b.netlify.com)
+
 ![Demo](https://i.imgur.com/ZQPPQZO.jpg)
 
 ## User Stories
