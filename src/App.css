@@ -1,0 +1,20 @@
+.appContainer {
+  padding-top: 60px;
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #f4f6f8;
+}
+
+.appContainer .ui.menu {
+  width: 100%;
+}
+
+.page-content {
+  height: 100%;
+  width: 100%;
+  min-height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
