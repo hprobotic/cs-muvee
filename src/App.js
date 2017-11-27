@@ -1,7 +1,8 @@
 // @flow
 import React, { Component } from 'react';
-import {Loader, Input, Menu, Item, Grid, Image } from 'semantic-ui-react';
-import { MoviesList } from './components';
+import {Loader, Input, Menu, Item, Grid, Image, Icon, Header, Button } from 'semantic-ui-react';
+import { sleep } from './utils';
+import { MoviesList, InternetModal} from './components';
 import { getMovies } from './servies';
 import './App.css';
 
@@ -28,39 +29,41 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      isNet: true,
       isLoading: true,
       activeItem: CONTENT_TYPE.nowPlaying,
       movies: [],
       error: false,
-      errorMessage: ''
+      errorMessage: '',
+      currentPage: 1
     }
   }
   
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-  
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleOnScroll)
-    this.fetchMovies(this.state.activeItem)
-  }
-
-  componentWillUnMount() {
-    window.removeEventListener('scroll', this.handleOnScroll)
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    console.log(nextState)
-    if (nextState.activeItem !== this.state.activeItem) {
-      this.fetchMovies(nextState.activeItem)
+  handleItemClick = (e, { name }) => {
+    if (name !== this.state.activeItem) {
+      this.setState({ 
+        activeItem: name, 
+        movies: []
+      }, () => {this.fetchMovies(name)})
     }
-    return true
   }
 
-  fetchMovies = (type, isCont: boolean = false) => {
+  fetchMovies = async (type, isCont: boolean = false) => {
     const self = this;
     this.setState({
       isLoading: true
     })
-    getMovies(type).then(data => {
+    await sleep(2000)
+    if (isCont) {
+      this.setState({
+        currentPage: this.state.currentPage+1
+      })
+    } else {
+      this.setState({
+        currentPage: 1
+      })
+    }
+    getMovies(type, this.state.currentPage).then(data => {
       let moviesData = []
       if (isCont) {
         moviesData = this.state.movies.concat(data.results);
@@ -82,16 +85,50 @@ class App extends Component {
     })
   }
 
+  handleOnScroll = () => {
+    const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+    const scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight || window.innerHeight;
+    const scrolledToBottom = Math.ceil(scrollTop + clientHeight ) >= scrollHeight;
+    
+    if (scrolledToBottom) {
+      this.fetchMovies(this.state.activeItem, true)
+    }
+  }
+
+  updateOnlineStatus = () => {
+    this.setState({ isNet: false })
+  }
+  
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleOnScroll)
+    window.addEventListener('offline', this.updateOnlineStatus);  }
+
+  componentWillUnMount() {
+    window.removeEventListener('scroll', this.handleOnScroll)
+  }
+
   render() {
-    const { isLoading, activeItem, movies } = this.state
+    const { isLoading, activeItem, movies, isNet } = this.state
     return (
     <div className="appContainer">
+      {!isNet && <InternetModal />}
       <Grid container >
-        <Menu pointing secondary>
-          <Menu.Item header>muvee.io</Menu.Item>
+        <Menu pointing>
+          <Menu.Item header>MUVEE.IO</Menu.Item>
           <Menu.Item name='nowPlaying' active={activeItem === 'nowPlaying'} onClick={this.handleItemClick} />
           <Menu.Item name='topRated' active={activeItem === 'topRated'} onClick={this.handleItemClick} />
           <Menu.Menu position='right'>
+            <Menu.Item>
+              <Button>
+                <Icon name='filter'/> Title
+            </Button>
+            </Menu.Item>
+             <Menu.Item>
+                <Button>
+                <Icon name='refresh'/> Refresh
+            </Button>
+            </Menu.Item>
             <Menu.Item>
               <Input icon='search' placeholder='Search...' />
             </Menu.Item>
@@ -100,11 +137,8 @@ class App extends Component {
       </Grid>
       <Grid container columns={3}>
         <div className="page-content row">
-        {isLoading
-          ? <LoaderMassive />
-          : <MoviesList movies={movies} />
-        }
-
+          <MoviesList movies={movies} />
+          {isLoading && <LoaderMassive />}
         </div>
       </Grid>
   </div>
