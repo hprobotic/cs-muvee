@@ -1,8 +1,12 @@
-# Project 1 - *Name of App Here*
+# Project 1 - *Muvee*
 
-**Name of your app** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+**Muvee** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
 Time spent: **8** hours spent in total
+
+## Demo
+=> Link: 
+![Demo](https://i.imgur.com/ZQPPQZO.jpg)
 
 ## User Stories
 
@@ -30,7 +34,7 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![](https://i.imgur.com/DgLLtKK.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
