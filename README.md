@@ -2,14 +2,14 @@
 
 **Name of your app** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **10** hours spent in total
+Time spent: **8** hours spent in total
 
 ## User Stories
 
 The following **required** functionality is completed:
 
 - [x] User can view a list of movies currently playing in theaters.
-- [x] User can show/hide details about each movie.
+- [ ] User can show/hide details about each movie.
 - [x] User sees loading state while waiting for the API.
 - [x] User sees an error message when there is a network error.
 - [x] User can refresh the movie list.
@@ -23,11 +23,8 @@ The following **optional** features are implemented:
 - [ ] Animations on open/close details.
 - [x] Infinite Scrolling.
 - [ ] Movie Poster Lightbox on click
-- [x] Multiple Layout Options
+- [ ] Multiple Layout Options
 
-The following **additional** features are implemented:
-
-- [ ] List anything else that you can get done to improve the app functionality!
 
 ## Video Walkthrough
 
@@ -40,4 +37,4 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Describe any challenges encountered while building the app.
-
+- Race condition when perform search in local then try to access online resource

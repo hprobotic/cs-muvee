@@ -7,7 +7,7 @@ class MovieItem extends React.Component {
   render() {
   const { movie } = this.props;
     return(
-      <div className="movie-item">
+      <div className="movie-item card">
         <img src={media.url.thumbnail + movie.poster_path} />
         <p className="movie-title">{movie.original_title}</p>
         <p className="movie-meta"><Icon name="calendar"/> <span className="date">{movie.release_date}</span> &nbsp; &nbsp;  <Icon name="star" /> <span className="rate">{movie.vote_average}</span></p>
