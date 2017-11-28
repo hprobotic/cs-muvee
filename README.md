@@ -5,7 +5,7 @@
 Time spent: **8** hours spent in total
 
 ## Demo
-[Online Demo](https://serene-varahamihira-45fe9b.netlify.com)
+[Online Demo](http://unruffled-northcutt-735760.netlify.com/)
 
 ![Demo](https://i.imgur.com/ZQPPQZO.jpg)
 
